@@ -1,0 +1,13 @@
+{
+    "name": "bonekify-rest-service",
+    "version": "1.0.0",
+    "description": "Bonekify REST Service",
+    "author": "Ahmad Alfani Handoyo",
+    "main": "app.js",
+    "scripts": {
+      "start": "node app.js"
+    },
+    "dependencies": {
+      "express": "^4.18.2"
+    }
+  }
