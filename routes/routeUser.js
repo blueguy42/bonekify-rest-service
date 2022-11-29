@@ -6,7 +6,7 @@ const user = require('../services/user');
 /* GET penyanyi */
 router.get('/users', async function(req, res, next) {
   try {
-    res.json(await user.getUsers());
+    return res.json(await user.getUsers());
   } catch (err) {
     console.error(`Error while getting list of users: `, err.message);
     return res.json({message: 'Error while getting list of users: ' + err.message});
@@ -23,7 +23,7 @@ router.post('/create', async function(req, res, next) {
     } 
     const salt = await bcrypt.genSalt();
     const hashPassword = await bcrypt.hash(password, salt);
-    res.json(await user.createUser(username, hashPassword, email, name));
+    return res.json(await user.createUser(username, hashPassword, email, name));
   } catch (err) {
     console.error(`Error in creating user: `, err.message);
     return res.json({message: 'Error in creating user: ' + err.message});
