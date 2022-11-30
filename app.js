@@ -1,6 +1,7 @@
 const express = require('express');
 const routePenyanyi = require("./routes/routePenyanyi");
 const routeUser = require("./routes/routeUser");
+const routeSubscription = require("./routes/routeSubscription");
 
 // https://www.digitalocean.com/community/tutorials/nodejs-jwt-expressjs
 
@@ -16,6 +17,7 @@ app.use(
 
 app.use("/penyanyi", routePenyanyi);
 app.use("/user", routeUser);
+app.use("/subscription", routeSubscription);
 
 app.get("/", (req, res) => {
   res.json({ message: "ok" });
