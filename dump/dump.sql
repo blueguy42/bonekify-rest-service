@@ -27,7 +27,7 @@ CREATE TABLE IF NOT EXISTS `Song` (
 );
 
 INSERT INTO `User` (`email`, `password`, `username`, `name`, `isAdmin`) VALUES
-('rizkysaulafan@gmail.com', '$2y$10$luYHB8NjJfY6d17i8to/9O5mObiuOjbY8LeqvMYlLvKezh43igcGS', 'rizkysaulafan', 'Rizky Alfani Sayers', 1),
-('randomuser@gmail.com', '$2y$10$jXKli50oWBGO/6zQIMMnv.wlQltLb6dgIP4oIPkuADkDHyG4NCCTK', 'anonimus', 'Anonimus', 0);
+('admin@gmail.com', '$2b$10$pnqu3Rh/ozFTIebO3ze3XOs1uX849gHmnycdB36V7y.hGTcK7huKe', 'admin', 'Admin', 1),
+('penyanyi@gmail.com', '$2b$10$RjAtP0QExrkp8/c2qtgbV.3Yz6a9yVzfbjXmi3uu8WdwExN/v4nXW', 'penyanyi', 'Penyanyi', 0);
 
 COMMIT;
