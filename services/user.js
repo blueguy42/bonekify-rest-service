@@ -11,7 +11,16 @@ async function getUsers(){
     return {data};
 }
 
-async function getUsername(){
+async function getDetailUser(username){
+  const result = await db.query(
+    `SELECT * FROM User WHERE username='${username}'`
+  );
+  const data = helper.emptyOrRows(result);
+
+  return {data};
+}
+
+async function getUsernames(){
   const result = await db.query(
     `SELECT username FROM User`
   );
@@ -20,9 +29,18 @@ async function getUsername(){
   return {data};
 }
 
-async function getEmail(){
+async function getEmails(){
   const result = await db.query(
     `SELECT email FROM User`
+  );
+  const data = helper.emptyOrRows(result);
+
+  return {data};
+}
+
+async function getId(username){
+  const result = await db.query(
+    `SELECT user_id FROM User WHERE username='${username}'`
   );
   const data = helper.emptyOrRows(result);
 
@@ -36,16 +54,18 @@ async function createUser(username, password, email, name){
     );
     
     let message = 'Error in creating user';
-    if (result.affectedRows) {
-        message = 'User created successfully';
-      }
+    if (!result.affectedRows) {
+      message = 'User created successfully';
+    }
 
     return {message};
 }
 
 module.exports = {
     getUsers,
-    getUsername,
-    getEmail,
+    getDetailUser,
+    getUsernames,
+    getEmails,
+    getId,
     createUser
 }

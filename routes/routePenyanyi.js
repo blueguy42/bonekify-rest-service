@@ -5,10 +5,10 @@ const penyanyi = require('../services/penyanyi');
 /* GET penyanyi */
 router.get('/', async function(req, res, next) {
     try {
-      return res.json(await penyanyi.getPenyanyi());
+      res.status(200).json(await penyanyi.getPenyanyi());
     } catch (err) {
       console.error(`Error while getting list of penyanyi: `, err.message);
-      return res.json({message: 'Error while getting list of penyanyi: ' + err.message});
+      res.status(400).json({message: 'Error while getting list of penyanyi: ' + err.message});
     }
   });
   
