@@ -5,9 +5,11 @@ const routeUser = require("./routes/routeUser");
 // https://www.digitalocean.com/community/tutorials/nodejs-jwt-expressjs
 
 const app = express();
+var cors = require('cors')
 const port = 3000;
 
 app.use(express.json());
+app.use(cors())
 app.use(
   express.urlencoded({
     extended: true,
