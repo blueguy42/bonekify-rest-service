@@ -54,7 +54,7 @@ async function createUser(username, password, email, name){
     );
     
     let message = 'Error in creating user';
-    if (!result.affectedRows) {
+    if (result.affectedRows) {
       message = 'User created successfully';
     }
 

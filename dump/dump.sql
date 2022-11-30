@@ -33,4 +33,10 @@ INSERT INTO `User` (`email`, `password`, `username`, `name`, `isAdmin`) VALUES
 ('katyperry@gmail.com', '$2b$10$hK2CEDkiLBdSpoS4eoOAh.FxsWKt6cMuHZPSlACN2VgDHUG.lph0G', 'katyperry', 'Katy Perry', 0),
 ('coldplay@gmail.com', '$2b$10$9udMfUEZf4nSiEhga3hRB.aWgGISFjvkVOAIdtffl.oYOFCSvhZ.6', 'coldplay', 'Coldplay', 0);
 
+INSERT INTO `Song` (`Judul`, `penyanyi_id`, `Audio_path`) VALUES
+('Lagu 1', 2, "lagu1.mp3"),
+('Lagu 2', 2, "lagu2.mp3"),
+('Lagu 3', 2, "lagu3.mp3"),
+('Lagu 4', 2, "lagu4.mp3");
+
 COMMIT;

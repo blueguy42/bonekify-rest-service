@@ -28,14 +28,14 @@ router.post('/register', async function(req, res, next) {
 
     const token = await jwtservice.generateAccessToken({ user_id: id, username: username, email: email, name: name }, 1800);
 
-    res.status(200).json({message: "Register successful", cuser_id: id, username: username, email: email, name: name, isAdmin: 0, token: token });
+    res.status(200).json({message: "Register successful", user_id: id, username: username, email: email, name: name, isAdmin: 0, token: token });
   } catch (err) {
     console.error(`Error in creating user: `, err.message);
     res.status(400).json({message: 'Error in creating user: ' + err.message});
   }
 });
 
-router.get('/login', async function(req, res, next) {
+router.post('/login', async function(req, res, next) {
   const { username, password } = req.body;
   try {
     const result = (await user.getDetailUser(username))['data'][0];
