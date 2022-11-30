@@ -15,7 +15,7 @@ router.get('/auth/read/all', jwtservice.authenticateToken, async function (req, 
   }
 });
 
-router.get('/auth/read/penyanyi', jwtservice.authenticateToken, async function (req, res) {
+router.post('/auth/read/penyanyi', jwtservice.authenticateToken, async function (req, res) {
   try {
     const penyanyi_id = (await jwt.verify(req.body['token'], process.env.TOKEN_SECRET))['user_id'];
     res.status(200).json(await lagu.getPenyanyiLagu(penyanyi_id));
