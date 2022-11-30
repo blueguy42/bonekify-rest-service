@@ -31,6 +31,6 @@ INSERT INTO `User` (`email`, `password`, `username`, `name`, `isAdmin`) VALUES
 ('penyanyi@gmail.com', '$2b$10$RjAtP0QExrkp8/c2qtgbV.3Yz6a9yVzfbjXmi3uu8WdwExN/v4nXW', 'penyanyi', 'Penyanyi', 0),
 ('blackpink@gmail.com', '$2b$10$j2I/ZDqT42eKLjWZa9EGJ.H7aHxNenScH2kZtM1fIw9vjjxbI3dy2', 'blackpink', 'BLACKPINK', 0),
 ('katyperry@gmail.com', '$2b$10$hK2CEDkiLBdSpoS4eoOAh.FxsWKt6cMuHZPSlACN2VgDHUG.lph0G', 'katyperry', 'Katy Perry', 0),
-('coldplay@gmail.com', '$2b$10$9udMfUEZf4nSiEhga3hRB.aWgGISFjvkVOAIdtffl.oYOFCSvhZ.6', 'coldplay', 'Coldplay', 0),
+('coldplay@gmail.com', '$2b$10$9udMfUEZf4nSiEhga3hRB.aWgGISFjvkVOAIdtffl.oYOFCSvhZ.6', 'coldplay', 'Coldplay', 0);
 
 COMMIT;
