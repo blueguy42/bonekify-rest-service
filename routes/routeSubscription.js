@@ -8,6 +8,8 @@ router.get('/pending', async function(req, res) {
     const soap = require('soap');
     const url = 'http://bonekify-soap-service:1401/?wsdl';
     const client = await soap.createClientAsync(url);
+    client.addHttpHeader("x-api-key","123123")
+    client.addHttpHeader("origin","REST")
     const data = (await client.getPendingSubscriberAsync({}))[0]['return'];
     return res.status(200).json(data);
 
@@ -25,6 +27,8 @@ router.post('/listlagu', async function (req,res){
       arg0 : req.body["user_id"]
     }
     const client = await soap.createClientAsync(url);
+    client.addHttpHeader("x-api-key","123123")
+    client.addHttpHeader("origin","REST")
     const subs = await client.getSubscribedAsync(args);
     const data = await subscription.getLaguPremium(subs[0]["return"]);
     return res.status(200).json(data);
@@ -34,7 +38,7 @@ router.post('/listlagu', async function (req,res){
   }
 })
 
-router.put('setstatus/accept', async function (req,res){
+router.put('/setstatus/accept', async function (req,res){
   try{
     const soap = require('soap');
     const url = 'http://bonekify-soap-service:1401/?wsdl';
@@ -44,6 +48,8 @@ router.put('setstatus/accept', async function (req,res){
       arg2 : "ACCEPTED"
     }
     const client = await soap.createClientAsync(url);
+    client.addHttpHeader("x-api-key","123123")
+    client.addHttpHeader("origin","REST")
     const subs = await client.setStatus(args);
     return res.status(200)
   }catch(err){
@@ -51,7 +57,7 @@ router.put('setstatus/accept', async function (req,res){
   }
 })
 
-router.put('setstatus/reject', async function (req,res){
+router.put('/setstatus/reject', async function (req,res){
   try{
     const soap = require('soap');
     const url = 'http://bonekify-soap-service:1401/?wsdl';
@@ -61,6 +67,8 @@ router.put('setstatus/reject', async function (req,res){
       arg2 : "REJECTED"
     }
     const client = await soap.createClientAsync(url);
+    client.addHttpHeader("x-api-key","123123")
+    client.addHttpHeader("origin","REST")
     const subs = await client.setStatus(args);
     return res.status(200)
   }catch(err){
