@@ -10,6 +10,8 @@ router.get('/pending', jwtservice.authenticateToken, async function(req, res) {
     const soap = require('soap');
     const url = 'http://bonekify-soap-service:1401/?wsdl';
     const client = await soap.createClientAsync(url);
+    client.addHttpHeader("x-api-key","123123")
+    client.addHttpHeader("origin","REST")
     const data = (await client.getPendingSubscriberAsync({}))[0]['return'];
     return res.status(200).json(data);
 
@@ -27,6 +29,8 @@ router.post('/listlagu', async function (req,res){
       arg0 : req.body["user_id"]
     }
     const client = await soap.createClientAsync(url);
+    client.addHttpHeader("x-api-key","123123")
+    client.addHttpHeader("origin","REST")
     const subs = await client.getSubscribedAsync(args);
     const data = await subscription.getLaguPremium(subs[0]["return"]);
     return res.status(200).json(data);
@@ -46,6 +50,8 @@ router.put('/setstatus/accept', jwtservice.authenticateToken, async function (re
       arg2 : "ACCEPTED"
     }
     const client = await soap.createClientAsync(url);
+    client.addHttpHeader("x-api-key","123123")
+    client.addHttpHeader("origin","REST")
     const subs = await client.setStatus(args);
     return res.status(200).json({message: `Subscription creator_id ${req.body["creator_id"]} subscriber_id ${req.body["subscriber_id"]} status successfully updated to ACCEPTED`});
   }catch(err){
@@ -63,6 +69,8 @@ router.put('/setstatus/reject', jwtservice.authenticateToken, async function (re
       arg2 : "REJECTED"
     }
     const client = await soap.createClientAsync(url);
+    client.addHttpHeader("x-api-key","123123")
+    client.addHttpHeader("origin","REST")
     const subs = await client.setStatus(args);
     return res.status(200).json({message: `Subscription creator_id ${req.body["creator_id"]} subscriber_id ${req.body["subscriber_id"]} status successfully updated to REJECTED`});
   }catch(err){
