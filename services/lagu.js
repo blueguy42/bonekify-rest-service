@@ -1,6 +1,5 @@
 const db = require('./db');
 const helper = require('../helper');
-const config = require('../config');
 
 async function getAllLagu(){
   const result = await db.query(
@@ -90,16 +89,6 @@ async function latestId(){
   return {data};
 }
 
-async function getLaguPremium(creator_ids){
-  console.log(creator_ids);
-  console.log(`SELECT * FROM Song WHERE penyanyi_id IN (${creator_ids.join()})`)
-  const result = await db.query(
-    `SELECT * FROM Song WHERE penyanyi_id IN (${creator_ids.join()})`
-  );
-  const data = helper.emptyOrRows(result);
-  return data;
-}
-
 module.exports = {
   getAllLagu,
   getPenyanyiLagu,
@@ -108,6 +97,5 @@ module.exports = {
   updateJudulLagu,
   updatePathLagu,
   deleteLagu,
-  latestId,
-  getLaguPremium
+  latestId
 }
