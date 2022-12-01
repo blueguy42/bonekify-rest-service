@@ -4,7 +4,19 @@ const jwt = require('jsonwebtoken');
 const lagu = require('../services/lagu');
 const jwtservice = require('../middleware/jwt');
 const multer = require('multer');
+const path = require('path');
 
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'uploads/')
+  },
+  filename: function (req, file, cb) {
+    console.log(file);
+    cb(null, Date.now() + path.extname(file.originalname)) //Appending extension
+  }
+})
+
+const upload = multer({ storage: storage });
 
 router.get('/auth/read/all', jwtservice.authenticateToken, async function (req, res) {
   try {
@@ -41,14 +53,14 @@ router.get('/auth/read/lagu', jwtservice.authenticateToken, async function (req,
   }
 });
 
-router.post('/auth/create', jwtservice.authenticateToken, async function(req, res) {
+router.post('/auth/create', jwtservice.authenticateToken, upload.single("audio_path"), async function(req, res) {
   const penyanyi_id = (await jwt.verify(req.headers['authorization'], process.env.TOKEN_SECRET))['user_id'];
-  const { judul, audio_path } = req.body;
+  const { judul } = req.body;
   try {
-    const result = await lagu.createLagu(judul, penyanyi_id, audio_path);
+    const result = await lagu.createLagu(judul, penyanyi_id, req.file.filename);
     const song_id = (await lagu.latestId())['data'][0]['song_id'];
 
-    res.status(200).json({message: "Song successfully added", song_id: song_id, judul: judul, penyanyi_id: penyanyi_id, audio_path: audio_path});
+    res.status(200).json({message: "Song successfully added", song_id: song_id, judul: judul, penyanyi_id: penyanyi_id, audio_path: req.file.filename});
   } catch (err) {
     console.error(`Error in creating user: `, err.message);
     res.status(400).json({message: 'Error in creating user: ' + err.message});
@@ -71,7 +83,7 @@ router.put('/auth/update/judul', jwtservice.authenticateToken, async function (r
   }
 });
 
-router.put('/auth/update/audio_path', jwtservice.authenticateToken, async function (req, res) {
+router.put('/auth/update/audio_path', jwtservice.authenticateToken, upload.single("audio_path"), async function (req, res) {
   try {
     const penyanyi_id = (await lagu.getLagu(req.body['song_id']))['data'][0];
     if (!penyanyi_id) {throw new Error('song_id invalid');}
@@ -80,7 +92,7 @@ router.put('/auth/update/audio_path', jwtservice.authenticateToken, async functi
     if (penyanyi_id['penyanyi_id'] != user_id) {
       throw new Error('song not owned by singer');
     }
-    res.status(200).json(await lagu.updatePathLagu(req.body['song_id'], req.body['audio_path']));
+    res.status(200).json(await lagu.updatePathLagu(req.body['song_id'], req.file.filename));
   } catch (err) {
     console.error(`Error while getting song information: `, err.message);
     res.status(400).json({message: 'Error while getting song information: ' + err.message});

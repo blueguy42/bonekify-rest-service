@@ -22,6 +22,7 @@ app.use("/penyanyi", routePenyanyi);
 app.use("/user", routeUser);
 app.use("/subscription", routeSubscription);
 app.use("/lagu", routeLagu);
+app.use('/static', express.static('uploads'));
 
 app.get("/", (req, res) => {
   res.json({ message: "ok" });
