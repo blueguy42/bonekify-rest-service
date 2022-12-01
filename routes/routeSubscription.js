@@ -1,9 +1,11 @@
 const express = require('express');
 const router = express.Router();
+const jwt = require('jsonwebtoken');
 const subscription = require('../services/subscription');
+const jwtservice = require('../middleware/jwt');
 
 /* GET penyanyi */
-router.get('/pending', async function(req, res) {
+router.get('/pending', jwtservice.authenticateToken, async function(req, res) {
   try{
     const soap = require('soap');
     const url = 'http://bonekify-soap-service:1401/?wsdl';
@@ -34,7 +36,7 @@ router.post('/listlagu', async function (req,res){
   }
 })
 
-router.put('setstatus/accept', async function (req,res){
+router.put('setstatus/accept', jwtservice.authenticateToken, async function (req,res){
   try{
     const soap = require('soap');
     const url = 'http://bonekify-soap-service:1401/?wsdl';
@@ -51,7 +53,7 @@ router.put('setstatus/accept', async function (req,res){
   }
 })
 
-router.put('setstatus/reject', async function (req,res){
+router.put('setstatus/reject', jwtservice.authenticateToken, async function (req,res){
   try{
     const soap = require('soap');
     const url = 'http://bonekify-soap-service:1401/?wsdl';
