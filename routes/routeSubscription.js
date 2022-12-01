@@ -13,10 +13,8 @@ router.get('/pending', jwtservice.authenticateToken, async function(req, res) {
     client.addHttpHeader("origin","REST")
     const data = (await client.getPendingSubscriberAsync({}))[0];
     if (!data) {
-      console.log([]);
       return res.status(200).json([]);
     } else {
-      console.log(data['return']);
       return res.status(200).json(data['return']); 
     }
   }catch(err){
