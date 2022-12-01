@@ -4,7 +4,6 @@ const jwt = require('jsonwebtoken');
 const subscription = require('../services/subscription');
 const jwtservice = require('../middleware/jwt');
 
-/* GET penyanyi */
 router.get('/pending', jwtservice.authenticateToken, async function(req, res) {
   try{
     const soap = require('soap');
@@ -12,9 +11,14 @@ router.get('/pending', jwtservice.authenticateToken, async function(req, res) {
     const client = await soap.createClientAsync(url);
     client.addHttpHeader("x-api-key","123123")
     client.addHttpHeader("origin","REST")
-    const data = (await client.getPendingSubscriberAsync({}))[0]['return'];
-    return res.status(200).json(data);
-
+    const data = (await client.getPendingSubscriberAsync({}))[0];
+    if (!data) {
+      console.log([]);
+      return res.status(200).json([]);
+    } else {
+      console.log(data['return']);
+      return res.status(200).json(data['return']); 
+    }
   }catch(err){
     res.status(400).json({message: 'Error while getting list of pending subscriptions: ' + err.message});
   }
@@ -52,7 +56,7 @@ router.put('/setstatus/accept', jwtservice.authenticateToken, async function (re
     const client = await soap.createClientAsync(url);
     client.addHttpHeader("x-api-key","123123")
     client.addHttpHeader("origin","REST")
-    const subs = await client.setStatus(args);
+    const subs = await client.setStatusAsync(args);
     return res.status(200).json({message: `Subscription creator_id ${req.body["creator_id"]} subscriber_id ${req.body["subscriber_id"]} status successfully updated to ACCEPTED`});
   }catch(err){
     res.status(400).json({message: 'Error while getting premium song information: ' + err.message});
@@ -71,7 +75,7 @@ router.put('/setstatus/reject', jwtservice.authenticateToken, async function (re
     const client = await soap.createClientAsync(url);
     client.addHttpHeader("x-api-key","123123")
     client.addHttpHeader("origin","REST")
-    const subs = await client.setStatus(args);
+    const subs = await client.setStatusAsync(args);
     return res.status(200).json({message: `Subscription creator_id ${req.body["creator_id"]} subscriber_id ${req.body["subscriber_id"]} status successfully updated to REJECTED`});
   }catch(err){
     res.status(400).json({message: 'Error while getting premium song information: ' + err.message});
