@@ -3,6 +3,7 @@ const router = express.Router();
 const jwt = require('jsonwebtoken');
 const lagu = require('../services/lagu');
 const jwtservice = require('../middleware/jwt');
+const multer = require('multer');
 
 
 router.get('/auth/read/all', jwtservice.authenticateToken, async function (req, res) {
