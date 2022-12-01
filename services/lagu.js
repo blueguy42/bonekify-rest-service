@@ -16,7 +16,7 @@ async function getPenyanyiLagu(penyanyi_id){
     );
     const data = helper.emptyOrRows(result);
   
-    return {data};
+    return data;
 }
 
 async function getLagu(song_id){

@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const jwt = require('jsonwebtoken');
 const subscription = require('../services/subscription');
+const lagu = require('../services/lagu');
 const jwtservice = require('../middleware/jwt');
 
 /* GET penyanyi */
@@ -26,14 +27,22 @@ router.post('/listlagu', async function (req,res){
     const soap = require('soap');
     const url = 'http://bonekify-soap-service:1401/?wsdl';
     const args = {
-      arg0 : req.body["user_id"]
+      arg0 : req.body["creator_id"],
+      arg1 : req.body["subscriber_id"]
     }
     const client = await soap.createClientAsync(url);
     client.addHttpHeader("x-api-key","123123")
     client.addHttpHeader("origin","REST")
-    const subs = await client.getSubscribedAsync(args);
-    const data = await subscription.getLaguPremium(subs[0]["return"]);
-    return res.status(200).json(data);
+    const subs = await client.validateAsync(args);
+    console.log(subs[0]);
+    var data=""
+    if(subs[0]["return"]){
+      data = await lagu.getPenyanyiLagu(req.body["creator_id"]);
+    }else{
+      data = {};
+    }
+    
+    return res.send(data);
 
   }catch(err){
     res.status(400).json({message: 'Error while getting premium song information: ' + err.message});
