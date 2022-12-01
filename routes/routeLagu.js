@@ -27,7 +27,7 @@ router.get('/auth/read/penyanyi', jwtservice.authenticateToken, async function (
 
 router.get('/auth/read/lagu', jwtservice.authenticateToken, async function (req, res) {
   try {
-    const result = (await lagu.getLagu(req.body['song_id']));
+    const result = (await lagu.getLagu(req.query.song_id));
     if (!(result['data'][0])) {throw new Error('song_id invalid');}
     const user_id = (await jwt.verify(req.headers['authorization'], process.env.TOKEN_SECRET))['user_id'];
 
