@@ -1,9 +1,11 @@
 const express = require('express');
 const router = express.Router();
+const jwt = require('jsonwebtoken');
 const subscription = require('../services/subscription');
+const jwtservice = require('../middleware/jwt');
 
 /* GET penyanyi */
-router.get('/pending', async function(req, res) {
+router.get('/pending', jwtservice.authenticateToken, async function(req, res) {
   try{
     const soap = require('soap');
     const url = 'http://bonekify-soap-service:1401/?wsdl';
@@ -38,7 +40,7 @@ router.post('/listlagu', async function (req,res){
   }
 })
 
-router.put('/setstatus/accept', async function (req,res){
+router.put('/setstatus/accept', jwtservice.authenticateToken, async function (req,res){
   try{
     const soap = require('soap');
     const url = 'http://bonekify-soap-service:1401/?wsdl';
@@ -51,13 +53,13 @@ router.put('/setstatus/accept', async function (req,res){
     client.addHttpHeader("x-api-key","123123")
     client.addHttpHeader("origin","REST")
     const subs = await client.setStatus(args);
-    return res.status(200)
+    return res.status(200).json({message: `Subscription creator_id ${req.body["creator_id"]} subscriber_id ${req.body["subscriber_id"]} status successfully updated to ACCEPTED`});
   }catch(err){
     res.status(400).json({message: 'Error while getting premium song information: ' + err.message});
   }
 })
 
-router.put('/setstatus/reject', async function (req,res){
+router.put('/setstatus/reject', jwtservice.authenticateToken, async function (req,res){
   try{
     const soap = require('soap');
     const url = 'http://bonekify-soap-service:1401/?wsdl';
@@ -70,7 +72,7 @@ router.put('/setstatus/reject', async function (req,res){
     client.addHttpHeader("x-api-key","123123")
     client.addHttpHeader("origin","REST")
     const subs = await client.setStatus(args);
-    return res.status(200)
+    return res.status(200).json({message: `Subscription creator_id ${req.body["creator_id"]} subscriber_id ${req.body["subscriber_id"]} status successfully updated to REJECTED`});
   }catch(err){
     res.status(400).json({message: 'Error while getting premium song information: ' + err.message});
   }
