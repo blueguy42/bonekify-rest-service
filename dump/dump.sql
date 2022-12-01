@@ -37,6 +37,14 @@ INSERT INTO `Song` (`Judul`, `penyanyi_id`, `Audio_path`) VALUES
 ('Lagu 1', 2, "lagu1.mp3"),
 ('Lagu 2', 2, "lagu2.mp3"),
 ('Lagu 3', 2, "lagu3.mp3"),
-('Lagu 4', 2, "lagu4.mp3");
+('Lagu 4', 2, "lagu4.mp3"),
+('Lagu 5', 3, "lagu5.mp3"),
+('Lagu 6', 3, "lagu6.mp3"),
+('Lagu 7', 3, "lagu7.mp3"),
+('Lagu 8', 3, "lagu8.mp3"),
+('Lagu 9', 4, "lagu9.mp3"),
+('Lagu 10', 4, "lagu10.mp3"),
+('Lagu 11', 5, "lagu11.mp3"),
+('Lagu 12', 5, "lagu12.mp3");
 
 COMMIT;

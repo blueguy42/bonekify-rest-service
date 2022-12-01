@@ -102,5 +102,50 @@ router.delete('/auth/delete', jwtservice.authenticateToken, async function (req,
     res.status(400).json({message: 'Error while getting song information: ' + err.message});
   }
 });
+
+router.post('/lagupremium', async function (req,res){
+  try{
+    const soap = require('soap');
+    const url = 'http://bonekify-soap-service:1401/?wsdl';
+    const args = {
+      arg0 : req.body["user_id"]
+    }
+    console.log(req.body);
+
+    // (async() => {
+    //   const client = await soap.createClient(url)
+    //   console.log(client);
+    //   const response = await client.getSubscribed(args)
+    //   console.log(response);
+    //   const result = await lagu.getLaguPremium(response['return'])
+    //   console.log(result);
+    //   res.send(result)
+    // })();
+    soap.createClient(url, function(err, client) {
+      if (err) console.error(err);
+      else {
+        (async() => {
+          const response = await client.getSubscribed(args,function(err, response) {
+            if (err) console.error(err);
+            else {
+              console.log(response);
+            }
+            console.log("RESPONSE ADA")
+          })
+          console.log("MASUK");
+          const result = await lagu.getLaguPremium(response['return'])
+          console.log(result)
+
+
+        })
+      }
+    });
+
+    
+  }catch(err){
+    console.error(`Error while getting song information: `, err.message);
+    res.status(400).json({message: 'Error while getting song information: ' + err.message});
+  }
+})
   
 module.exports = router;
