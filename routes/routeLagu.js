@@ -15,9 +15,9 @@ router.get('/auth/read/all', jwtservice.authenticateToken, async function (req, 
   }
 });
 
-router.post('/auth/read/penyanyi', jwtservice.authenticateToken, async function (req, res) {
+router.get('/auth/read/penyanyi', jwtservice.authenticateToken, async function (req, res) {
   try {
-    const penyanyi_id = (await jwt.verify(req.body['token'], process.env.TOKEN_SECRET))['user_id'];
+    const penyanyi_id = (await jwt.verify(req.headers['authorization'], process.env.TOKEN_SECRET))['user_id'];
     res.status(200).json(await lagu.getPenyanyiLagu(penyanyi_id));
   } catch (err) {
     console.error(`Error while getting list of songs: `, err.message);
@@ -29,7 +29,7 @@ router.get('/auth/read/lagu', jwtservice.authenticateToken, async function (req,
   try {
     const result = (await lagu.getLagu(req.body['song_id']));
     if (!(result['data'][0])) {throw new Error('song_id invalid');}
-    const user_id = (await jwt.verify(req.body['token'], process.env.TOKEN_SECRET))['user_id'];
+    const user_id = (await jwt.verify(req.headers['authorization'], process.env.TOKEN_SECRET))['user_id'];
 
     if (result['data'][0]['penyanyi_id'] != user_id) {
       throw new Error('song not owned by singer');
@@ -42,7 +42,7 @@ router.get('/auth/read/lagu', jwtservice.authenticateToken, async function (req,
 });
 
 router.post('/auth/create', jwtservice.authenticateToken, async function(req, res) {
-  const penyanyi_id = (await jwt.verify(req.body['token'], process.env.TOKEN_SECRET))['user_id'];
+  const penyanyi_id = (await jwt.verify(req.headers['authorization'], process.env.TOKEN_SECRET))['user_id'];
   const { judul, audio_path } = req.body;
   try {
     const result = await lagu.createLagu(judul, penyanyi_id, audio_path);
@@ -59,7 +59,7 @@ router.put('/auth/update/judul', jwtservice.authenticateToken, async function (r
   try {
     const penyanyi_id = (await lagu.getLagu(req.body['song_id']))['data'][0];
     if (!penyanyi_id) {throw new Error('song_id invalid');}
-    const user_id = (await jwt.verify(req.body['token'], process.env.TOKEN_SECRET))['user_id'];
+    const user_id = (await jwt.verify(req.headers['authorization'], process.env.TOKEN_SECRET))['user_id'];
 
     if (penyanyi_id['penyanyi_id'] != user_id) {
       throw new Error('song not owned by singer');
@@ -75,7 +75,7 @@ router.put('/auth/update/audio_path', jwtservice.authenticateToken, async functi
   try {
     const penyanyi_id = (await lagu.getLagu(req.body['song_id']))['data'][0];
     if (!penyanyi_id) {throw new Error('song_id invalid');}
-    const user_id = (await jwt.verify(req.body['token'], process.env.TOKEN_SECRET))['user_id'];
+    const user_id = (await jwt.verify(req.headers['authorization'], process.env.TOKEN_SECRET))['user_id'];
 
     if (penyanyi_id['penyanyi_id'] != user_id) {
       throw new Error('song not owned by singer');
@@ -91,7 +91,7 @@ router.delete('/auth/delete', jwtservice.authenticateToken, async function (req,
   try {
     const penyanyi_id = (await lagu.getLagu(req.body['song_id']))['data'][0];
     if (!penyanyi_id) {throw new Error('song_id invalid');}
-    const user_id = (await jwt.verify(req.body['token'], process.env.TOKEN_SECRET))['user_id'];
+    const user_id = (await jwt.verify(req.headers['authorization'], process.env.TOKEN_SECRET))['user_id'];
 
     if (penyanyi_id['penyanyi_id'] != user_id) {
       throw new Error('song not owned by singer');
