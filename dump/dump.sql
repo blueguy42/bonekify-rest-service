@@ -27,7 +27,7 @@ INSERT INTO `User` (`user_id`, `email`, `password`, `username`, `name`, `isAdmin
 (7, 'johnwilliams@gmail.com', '$2b$10$2qKxmm2FlMEso0.SuR2CVuY2sj7XLdg3JC7/k87odhCLNwnKfvjSS', 'johnwilliams', 'John Williams', 0),
 (8, 'billyjoel@gmail.com', '$2b$10$MgSZ4WWYp9gFsMocx/9lGOhhMHFLCO4M7xS6E4ATXurzTOHQVj6ea', 'billyjoel', 'Billy Joel', 0),
 (9, 'westlife@gmail.com', '$2b$10$M9bxUrAR1Ab2NLNdvAjLfuoBL35jLAmb9LKxh/H43d1JN/OuADaUi', 'westlife', 'Westlife', 0),
-(10, 'backstreetboys@gmail.com', '$2b$10$ZwCNVKU3Cf0HgtAGURf22evMU2lBwbUZNeGYVtyLl.yeWVv3XGHta', 'backstreetboys', 'backstreetboys', 0);
+(10, 'backstreetboys@gmail.com', '$2b$10$ZwCNVKU3Cf0HgtAGURf22evMU2lBwbUZNeGYVtyLl.yeWVv3XGHta', 'backstreetboys', 'Backstreet Boys', 0);
 
 CREATE TABLE IF NOT EXISTS `Song` (
   `song_id` int NOT NULL AUTO_INCREMENT,
