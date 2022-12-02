@@ -45,7 +45,7 @@ INSERT INTO `Song` (`song_id`, `Judul`, `penyanyi_id`, `Audio_path`) VALUES
 (4, 'Paradise', 4, '1669926964005.mp3'),
 (5, 'Hymn For The Weekend', 4, '1669927075513.mp3'),
 (6, 'My Universe', 4, '1669927173987.mp3'),
-(7, 'Wonderwall', 5, '1669927325494.mp3');
+(7, 'Wonderwall', 5, '1669927325494.mp3'),
 (8, 'Don''t Look Back In Anger', 5, '1669928040671.mp3'),
 (9, 'Champagne Supernova', 5, '1669928101378.mp3'),
 (10, 'Yesterday', 6, '1669928203581.mp3'),
