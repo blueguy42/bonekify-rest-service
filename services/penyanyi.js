@@ -11,6 +11,17 @@ async function getPenyanyi(){
     return {data};
 }
 
+async function getDetailPenyanyi(user_id){
+  const rows = await db.query(
+    `SELECT user_id, name
+    FROM User WHERE user_id=${user_id}`
+  );
+  const data = helper.emptyOrRows(rows);
+
+  return {data};
+}
+
 module.exports = {
-    getPenyanyi
+    getPenyanyi,
+    getDetailPenyanyi
 }
