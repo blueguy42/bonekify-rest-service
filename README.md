@@ -1,11 +1,10 @@
-# BONEKIFY REST Service
+# BONEKIFY REST Service - IF3110 Web based Application Development: Major Assignment 2
 Bonekify is a music streaming web application service similar to Spotify.
 
 This is the repository for the back-end of Bonekify. It primarily has REST endpoint for the Bonekify Premium App for communication with its database and other services of the app. It also provides several endpoints for the base Bonekify app to fetch premium singers data. 
 
 THere are endpoints for premium songs CRUD, singers data, subscription read and update, and user authentication for the Bonekify Premium App.
 ## Table of Contents
-- [BONEKIFY REST Service](#bonekify-rest-service)
   - [Table of Contents](#table-of-contents)
   - [Requirements](#requirements)
   - [Installation](#installation)
@@ -75,7 +74,7 @@ This project is made by:
 
 Endpoint | Allocation | 
 --- | --- |
-Lagu | 13520023
-Penyanyi | 13520023
+Song | 13520023
+Singer | 13520023
 Subscription | 13520023, 13520094, 13520151
 User | 13520023, 13520094
